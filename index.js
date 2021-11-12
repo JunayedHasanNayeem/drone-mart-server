@@ -46,6 +46,14 @@ async function run() {
             const result = await productsCollection.insertOne(product)
         })
 
+        //DELETE USER ORDER - API
+        app.delete('/products/delete/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await productsCollection.deleteOne(query);
+            res.json(result);
+        })
+
         //GET ORDERS - API 
         app.get('/orders', async (req, res) => {
             const cursor = ordersCollection.find({})
@@ -115,6 +123,7 @@ async function run() {
         app.post('/users', async (req, res) => {
             const user = req.body;
             const result = await usersCollection.insertOne(user)
+            console.log(result)
         })
 
         //PUT USER - API
